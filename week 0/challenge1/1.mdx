@@ -10,31 +10,32 @@ It walks through each level's objective, commands used, and the resulting passwo
 
 ## 🎮 What is Bandit?
 
-[Bandit](https://overthewire.org/wargames/bandit/) is a wargame designed to teach the basics of Linux and security. It's the recommended starting point for anyone new to command-line and cybersecurity concepts.
+[Bandit](https://overthewire.org/wargames/bandit/) is a wargame designed to teach the basics of Linux and security. It's the recommended starting point for anyone new to command-line and cybersecurity.
 
 To connect to the game:
+
+---
+
 ## 🔓 Level 0 → Level 1
 
-### 🎯 Goal:
+### 🎯 Goal
 The password is stored in a file named `readme` in the home directory.
 
-### 🧪 Command:
+### 🧪 Command
 ```bash
 cat readme
 
-text
 🔑 Password:  
 ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
 
-## 🔓 Level 1 → Level 2
+🔓 Level 1 → Level 2
 
-### 🎯 Goal
+ 🎯 Goal
 The password is stored in a file named `-`
 
 ### 🧪 Command
-cat ./-
-
-text
+cat ./
+-
 
 ### 🔑 Password
 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
@@ -50,9 +51,9 @@ cat "spaces in this filename"
 bash
 MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
 
-## 🔓 Level 3 → Level 4
+🔓 Level 3 → Level 4
 
-### 🎯 Goal
+🎯 Goal
 The password is hidden inside a human-readable file in the `inhere` directory
 
 ### 🧪 Commands
@@ -61,19 +62,14 @@ ls -la
 file ./*
 cat ./<correct_file_with_ASCII_text>
 
-text
-
 ### 🔑 Password
 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
 
 🔓 Level 4 → Level 5
 🎯 Goal
 Find a file that is:
-
 Human-readable
-
 Exactly 1033 bytes
-
 Not executable
 
 🧪 Commands
@@ -81,13 +77,14 @@ bash
 cd inhere
 find . -type f -size 1033c ! -executable -exec file {} \; | grep "ASCII text"
 cat ./<correct_file>
+
 🔑 Password
 bash
 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
 
-## 🔓 Level 5 → Level 6
+ 🔓 Level 5 → Level 6
 
-### 🎯 Goal
+🎯 Goal
 Find a file with:
 - Owned by bandit7
 - Group bandit6
@@ -96,8 +93,6 @@ Find a file with:
 ### 🧪 Commands
 find / -user bandit7 -group bandit6 -size 33c 2>/dev/null
 cat /<correct_path>
-
-text
 
 ### 🔑 Password
 HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
