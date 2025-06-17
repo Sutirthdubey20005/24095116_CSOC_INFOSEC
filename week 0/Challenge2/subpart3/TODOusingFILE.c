@@ -1,3 +1,4 @@
+// this is a multi user to do list , but uses single file
 #include <stdio.h>
 int main(){
     FILE *f=fopen("todos.txt","a+"); // append 
