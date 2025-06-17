@@ -25,16 +25,17 @@ cat readme
 🔑 Password:
 ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
 
+## 🔓 Level 1 → Level 2
 
-🔓 Level 1 → Level 2
-Goal:
-The password is stored in a file named -.
+### 🎯 Goal:
+The password is stored in a file named `-`.
 
-Command:
-
-bash
+### 🧪 Command:
+```bash
 cat ./-
-Password:
+
+🔑 Password:
+```bash
 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
 
 🔓 Level 2 → Level 3
@@ -48,22 +49,23 @@ cat "spaces in this filename"
 Password:
 MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
 
-🔓 Level 3 → Level 4
-Goal:
-The password is hidden inside a human-readable file in the inhere directory.
+## 🔓 Level 3 → Level 4
 
-Commands:
+### 🎯 Goal:
+The password is hidden inside a human-readable file in the `inhere` directory.
 
-bash
+### 🧪 Commands:
+```bash
 cd inhere
 ls -la
 file ./*
 cat ./<correct_file_with_ASCII_text>
-Password:
+
+### Password:
 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
 
-🔓 Level 4 → Level 5
-Goal:
+## 🔓 Level 4 → Level 5
+### Goal:
 The password is in a file in inhere that is:
 
 Human-readable
@@ -71,34 +73,23 @@ Exactly 1033 bytes
 Not executable
 Commands:
 
-bash
+```bash
 cd inhere
 find . -type f -size 1033c ! -executable -exec file {} \; | grep "ASCII text"
 cat ./<correct_file>
 Password:
 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
 
-🔓 Level 5 → Level 6
-Goal:
+## 🔓 Level 5 → Level 6
+### Goal:
 Find a file with these conditions:
 
 Owned by bandit7
 Group is bandit6
 Exactly 33 bytes in size
 Commands:
-
-bash
+```bash
 find / -user bandit7 -group bandit6 -size 33c 2>/dev/null
 cat /<correct_path>
 Password:
 HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
-
-🧠 Tip
-Use man for any unknown command, and feel free to explore more levels beyond 6 to improve your Linux and InfoSec skills!
-
-
-```bash
-🧠 Tip
-Use man for any unknown command, and feel free to explore more levels beyond 6 to improve your Linux and InfoSec skills!
-
-
