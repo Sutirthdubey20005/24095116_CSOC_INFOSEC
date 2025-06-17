@@ -31,7 +31,7 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220
 🎯 Goal:
 The password is stored in a file named readme in the home directory.
 
-**Steps:**
+**🧪 Command::**
 
 ```bash
 ls
@@ -43,10 +43,10 @@ cat readme
 
 ---
 
-##🔓 Level 1 ➔ Level 2
+## 🔓 Level 1 ➔ Level 2
 🎯 Goal:
 The password is stored in a file named -
-**Steps:**
+**🧪 Command::**
 
 ```bash
 ls -la
@@ -62,7 +62,7 @@ cat ./-   # or: cat < -
 🎯 Goal:
 The password is in a file named spaces in this filename.
 
-**Steps:**
+**🧪 Command:**
 
 ```bash
 ls
@@ -78,7 +78,7 @@ cat spaces\ in\ this\ filename
 🎯 Goal:
 The password is hidden inside a human-readable file in the inhere directory.
 
-**Steps:**
+**🧪 Command:**
 
 ```bash
 ls
@@ -101,7 +101,7 @@ Exactly 1033 bytes in size
 
 Not executable
 
-**Steps:**
+**🧪 Command:**
 
 ```bash
 cd inhere
@@ -123,7 +123,7 @@ Group is bandit6
 
 Exactly 33 bytes in size
 
-**Steps:**
+**🧪 Command:**
 
 ```bash
 find inhere -type f -size 1033c ! -executable -readable
@@ -143,7 +143,7 @@ Group is bandit6
 
 Exactly 33 bytes in size
 
-**Steps:**
+**🧪 Command:**
 
 ```bash
 cd ..
