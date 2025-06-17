@@ -28,34 +28,27 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220
 
 ---
 
-## Level 0 ➔ 1
+## 🔓 Level 0 ➔ Level 1
 
-**Steps:**
+### 🎯 Goal:
+The password is stored in a file named `readme` in the home directory.
 
+### 🧪 Command:
 ```bash
-ls
 cat readme
-```
-
-**Password:** `ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If`
 
 ---
 
 ## Level 1 ➔ 2
 
-**Steps:**
+## 🔓 Level 1 ➔ Level 2
 
+### 🎯 Goal:
+The password is stored in a file named `-`.
+
+### 🧪 Command:
 ```bash
-ls -la
-cat ./-   # or: cat < -
-```
-
-**🎯 Goal:The password is stored in a file named -.:**
-
-* `ls -la`: Shows hidden files and files with strange names.
-* `cat ./-` or `cat < -`: `-` is interpreted as stdin; hence we escape it.
-
-**Password:** `263JGJPfgU6LtdEvgfWU1XP5yac29mFx`
+cat ./-
 
 ---
 
@@ -68,7 +61,7 @@ ls
 cat spaces\ in\ this\ filename
 ```
 
-**Explanation:**
+**Wokring:**
 
 * Filename has spaces. Escape them using `\` to read it with `cat`.
 
@@ -78,47 +71,51 @@ cat spaces\ in\ this\ filename
 
 ## Level 3 ➔ 4
 
-**🎯 Goal:The password is hidden inside a human-readable file in the inhere directory.:**
 
-**Steps:**
+---
 
+### ✅ **Level 3 ➔ Level 4**
+
+```mdx
+## 🔓 Level 3 ➔ Level 4
+
+### 🎯 Goal:
+The password is hidden inside a human-readable file in the `inhere` directory.
+
+### 🧪 Command:
 ```bash
-ls
 cd inhere
 ls -la
-cat .hidden-file-name
-```
-
-
-**Password:** `2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ`
+file ./*
+cat ./<correct_file_with_ASCII_text>
 
 ---
 
 ## Level 4 ➔ 5
-**🎯 Goal:
-The password is in a file in inhere that is:
 
-Human-readable
+---
 
-Exactly 1033 bytes
+### ✅ **Level 4 ➔ Level 5**
 
-Not executable:**
+```mdx
+## 🔓 Level 4 ➔ Level 5
 
+### 🎯 Goal:
+Find a file in `inhere` that is:
+- Human-readable
+- Exactly 1033 bytes in size
+- Not executable
 
-**Steps:**
-
+### 🧪 Command:
 ```bash
 cd inhere
-ls -la
-cat ./-file07
-```
-
+find . -type f -size 1033c ! -executable -exec file {} \; | grep "ASCII text"
+cat ./<correct_file>
 
 ---
 
 ## Level 5 ➔ 6
 **🎯 Goal:
-🎯 Goal:
 Find a file with these conditions:
 Owned by bandit7
 Group is bandit6
