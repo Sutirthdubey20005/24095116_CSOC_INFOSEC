@@ -5,35 +5,22 @@ I downloaded the challenge file and verified its type.
 
 Command:
 
-file <downloaded_file_name>
+file flag.png
 
 Observation:
 The file command confirmed it was a PNG image.
 
-Step 2: Searching for Hidden Data with zsteg
-I used zsteg to look for hidden data within the PNG.
 
-Command:
-
-zsteg <downloaded_file_name>
-
-Observation:
-zsteg did not immediately reveal the flag or obvious hidden text, suggesting an embedded file.
-
-Step 3: Carving for Hidden Files with foremost
-Since zsteg didn't work, I used foremost to extract any embedded files.
-
-Command:
-
-foremost <downloaded_file_name>
+foremost flag.png
 
 Explanation:
+step 1 : foremost flag.png
 foremost extracts recognized file types and saves them in an output folder.
 
 Observation:
 In the output folder, I found a zip file named 00000077.zip.
 
-Step 4: Unzipping the Retrieved Archive
+Step 2: Unzipping the Retrieved Archive
 I unzipped the extracted zip file.
 
 Command:
@@ -43,17 +30,11 @@ Command:
 Observation:
 A new folder named secret was created.
 
-Step 5: Final Flag Retrieval from the Nested Image
+Step 3: Final Flag Retrieval from the Nested Image
 I entered the secret folder to find the final artifact.
 
 Process:
-Inside the secret folder, I found another image file (e.g., flag.png).
+Inside the secret folder, I found another image file 
 
-Command (to view the image):
-
-xdg-open flag.png
-
-Observation:
 Opening flag.png revealed the flag clearly written within the image itself.
-
-Result (The Flag): (The actual flag would be visible in the flag.png image.)
+picoCTF{Hiddinng_An_imag3_within_@n_image_cda72af0}
