@@ -1,0 +1,72 @@
+# 🛡️ PicoCTF - Information Challenge: Uncovering Hidden Secrets
+
+## Challenge Overview:
+
+The "Information" challenge presents us with a single file: `cat.jpg`. The core task is to examine this file thoroughly to uncover a hidden flag. This forces us to think beyond simple file inspection and delve into deeper analysis techniques.
+
+Here's a step-by-step guide to solving the "Information" challenge.
+
+### Objective: Find the hidden flag in `cat.jpg`
+
+🎯 **Goal:** Discover the `picoCTF` flag concealed within the `cat.jpg` image.
+
+* **Initial File Verification:**
+  Before diving deep, it's good practice to verify the file type and look for any immediate anomalies.
+
+  * **Commands (for verification, though not strictly necessary to find the flag):**
+
+    ```bash
+    file cat.jpg
+    hexdump -C cat.jpg | head
+    binwalk cat.jpg
+    ```
+
+  * **Explanation:**
+
+    * `file cat.jpg`: Confirms the file type (e.g., `JPEG image data`).
+
+    * `hexdump -C cat.jpg | head`: Shows the hexadecimal and ASCII representation of the file's beginning, useful for spotting file headers.
+
+    * `binwalk cat.jpg`: A firmware analysis tool that can identify embedded files or data within other files.
+
+  * **Observation:**
+    These commands confirm that `cat.jpg` appears to be a legitimate JPEG image, without any obvious embedded files.
+
+* **Analyzing Image Metadata:**
+  When dealing with image files, the metadata (EXIF data) is a common place for information to be hidden. This includes details like author, camera model, date taken, and sometimes custom fields.
+
+  * **Tool:** An image viewer or editor (e.g., Gwenview, GIMP, Photoshop) that allows viewing metadata.
+
+  * **Steps:**
+
+    1. Open `cat.jpg` with your preferred image viewer/editor.
+
+    2. Navigate to the "Properties," "Details," or "Metadata" section of the image.
+
+  * **Observation:**
+    Upon inspecting the metadata, a peculiar string is found in the **`Licence`** field: `cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9`. This string's format (alphanumeric characters, often ending with `=`) strongly suggests it might be Base64 encoded.
+
+* **Decoding the Suspicious String:**
+  Given the suspicion of Base64 encoding, the next logical step is to decode the string.
+
+  * **Command:**
+
+    ```bash
+    echo cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 | base64 -d
+    ```
+
+  * **Explanation:**
+
+    * `echo cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9`: Prints the Base64 encoded string to standard output.
+
+    * `|`: Pipes the output of `echo` as input to the next command.
+
+    * `base64 -d`: Decodes the input from Base64.
+
+  * **Result:**
+    Executing this command reveals the hidden flag.
+
+* **Answer (The Flag):** ` echo cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 | base64 -d
+picoCTF{the_m3tadata_1s_modified}`
+
+---
