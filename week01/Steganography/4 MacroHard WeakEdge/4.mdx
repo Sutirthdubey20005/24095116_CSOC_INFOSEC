@@ -1,0 +1,7 @@
+I extracted the file and found a suspicious hidden file with some text. I thought it might be base64 encoded, and when I decoded it, I got the flag.
+binwalk -e fun.pptm
+
+in hidden 
+ZmxhZzogcGljb0NURntEMWRfdV9rbjB3X3BwdHNfcl96MXA1fQ
+❯strings hidden | tr -d ' ' | base64 -d
+picoCTF{D1d_u_kn0w_ppts_r_z1p5}
