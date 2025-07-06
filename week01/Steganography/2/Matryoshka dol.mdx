@@ -1,0 +1,59 @@
+I used Aperisolve, then extracted a file using Binwalk's extract option. After opening the file in Notepad, I found the flag.
+
+Step 1: Steganalysis with Aperisolve (Initial Image Layer)
+
+Tool: Aperisolve (or similar online/offline steganography analysis tools).
+
+Process: Upload the initial matryoshka.jpg to Aperisolve.
+
+Explanation: Aperisolve is excellent for quickly checking various image steganography techniques, such as LSB (Least Significant Bit) manipulation, color channel analysis, and hidden data. While it might not directly give the flag, it can confirm if data is hidden in the image itself or if there are other embedded files. It often visually highlights anomalies or provides hints.
+
+Observation: Aperisolve might confirm the presence of embedded data, reinforcing binwalk's findings.
+
+Step 2: Extracting Embedded Files with Binwalk
+
+Command:
+
+binwalk -e matryoshka.jpg
+
+Explanation:
+The -e (extract) option for binwalk is essential here. It automatically extracts all identified embedded files and places them into a newly created directory (e.g., _matryoshka.jpg.extracted). This process effectively "unpacks" the first layer of the Matryoshka doll.
+
+Observation:
+A new directory will appear, containing one or more files. These files represent the next layer(s) of the challenge. You might find a .zip file, another .jpg, or other compressed/encoded data.
+
+Step 3: Iterative Extraction and Inspection
+You will likely need to repeat the extraction and inspection process for the newly extracted files. If binwalk -e extracted a .zip file, you would then extract that zip. If it extracted another image, you might run binwalk -e on that new image again.
+
+Example (if a ZIP file was extracted):
+
+cd _matryoshka.jpg.extracted/
+unzip <extracted_zip_file.zip>
+
+Example (if another image was extracted):
+
+cd _matryoshka.jpg.extracted/
+binwalk -e <extracted_image.jpg>
+
+Step 4: Opening the Final Extracted File in Notepad (or Text Editor)
+Eventually, after several layers of extraction, you will arrive at a file that is not another archive or complex binary, but rather a simple text file or a file that contains plain text.
+
+Process: Navigate to the directory containing the final extracted file.
+
+Tool: A simple text editor like Notepad (on Windows) or cat (on Linux).
+
+Command (on Linux):
+
+cat <final_extracted_file_name>
+
+Steps:
+
+Open the final extracted file using Notepad or cat.
+
+Carefully read through its contents.
+
+Observation:
+The flag will be directly visible within the text content of this last extracted file.
+
+Answer (The Flag): picoCTF{YOUR_FLAG_HERE} (Replace with the actual flag you found)
+
