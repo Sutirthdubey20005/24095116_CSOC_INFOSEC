@@ -1,0 +1,158 @@
+🛡️ CSOC InfoSec - Week 1, Steganography Challenge 7: File Type Analysis
+For Week 1, Steganography Challenge 7 of the CSOC InfoSec program, we tackled the 'File Type' challenge from PicoCTF 2022. This challenge focused on identifying disguised file types and extracting hidden data.
+
+Objective: Uncover the hidden flag by identifying and extracting nested files
+🎯 Goal: Determine the true nature of Flag.pdf and extract the picoCTF flag.
+
+Step 1: Initial File Type Verification
+
+Command:
+
+file Flag.pdf
+
+Observation: It was a shell archive text, not a PDF.
+
+Step 2: Executing the Shell Archive
+
+Commands:
+
+cp Flag.pdf Flag.sh
+chmod +x Flag.sh
+./Flag.sh
+
+Observation: A new file named flag was generated.
+
+Step 3: Unpacking the First Layer - ar Archive
+
+Command:
+
+file flag
+
+Observation: It was a current ar archive.
+
+Command (for extraction):
+
+binwalk -e flag
+
+Observation: A folder _flag.extracted was created, containing a file named 64.
+
+Step 4: Decompressing the Second Layer - gzip Compressed Data
+
+Command:
+
+file _flag.extracted/64
+
+Observation: It was gzip compressed data.
+
+Command (for extraction):
+
+binwalk -e _flag.extracted/64
+
+Observation: Another extracted folder was created, containing a file also named flag.
+
+Step 5: Decompressing the Third Layer - lzip Compressed Data
+
+Command:
+
+file _64.extracted/flag
+
+Observation: It was lzip compressed data.
+
+Command (for extraction):
+
+lzip -d -k _64.extracted/flag
+
+Observation: This created flag.out.
+
+Step 6: Decompressing the Fourth Layer - LZ4 Compressed Data
+
+Command:
+
+file flag.out
+
+Observation: It was LZ4 compressed data.
+
+Command (for extraction):
+
+lz4 -d flag.out flag2.out
+
+Observation: This created flag2.out.
+
+Step 7: Decompressing the Fifth Layer - LZMA Compressed Data
+
+Command:
+
+file flag2.out
+
+Observation: It was LZMA compressed data.
+
+Commands (for extraction, with rename):
+
+mv flag2.out flag2.lzma
+lzma -d -k flag2.lzma
+
+Observation: This created flag2.
+
+Step 8: Decompressing the Sixth Layer - LZOP Compressed Data
+
+Command:
+
+file flag2
+
+Observation: It was LZOP compressed data.
+
+Commands (for extraction, with rename and output):
+
+mv flag2 flag2.lzop
+lzop -d -k flag2.lzop -o flag3
+
+Observation: This created flag3.
+
+Step 9: Decompressing the Seventh Layer - LZIP Compressed Data
+
+Command:
+
+file flag3
+
+Observation: It was LZIP compressed data.
+
+Command (for extraction):
+
+lzip -d -k flag3
+
+Observation: This created flag3.out.
+
+Step 10: Decompressing the Eighth Layer - XZ Compressed Data
+
+Command:
+
+file flag3.out
+
+Observation: It was XZ compressed data.
+
+Commands (for extraction, with rename):
+
+mv flag3.out flag4.xz
+xz -d -k flag4.xz
+
+Observation: This created flag4.
+
+Step 11: Final Flag Retrieval - ASCII Text and Hex Decoding
+
+Command:
+
+file flag4
+
+Observation: It was ASCII text.
+
+Command (to view content):
+
+cat flag4
+
+Observation: The content was a long hexadecimal string.
+
+Tool: CyberChef (or any hex decoder).
+
+Process: Converted the hex string to text.
+
+Result (The Flag): picoCTF{f1len@m3_m@n1pul@t10n_f0r_0b2cur17y_347eae65}
