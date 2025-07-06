@@ -1,0 +1,191 @@
+sakura ctf
+🕵️ CSOC InfoSec - OSINT Dojo Cyber Attack Investigation
+Hello charming people! This is my first OSINT challenge writeup, even though I've played many more before. Back then, I didn't know the hype of writeups. Now, being in InfoSec, I understand that helping others is key to gaining more knowledge in return. I hope you'll enjoy this one too.
+
+For those who don't know, OSINT stands for Open Source Intelligence. It's simply trying to find information on someone via publicly accessible sites, bins, etc.
+
+Note: I'll be showing the answers on top and their explanation just below. As always, I won't let you copy-paste. See, understand, type yourself, and truly learn.
+
+WALKTHROUGH
+The OSINT Dojo recently found themselves the victim of a cyber attack. During forensic analysis, admins found an image left behind by the cybercriminals. Our task is to find clues to determine who the attackers were.
+
+Task 1: Initial Reconnaissance
+Q.1. What username does the attacker go by?
+
+🎯 Goal: Identify the attacker's primary username from the provided image.
+
+Approach: I used exiftool to inspect the metadata of the image left by the attacker.
+
+Tools/Techniques Used: exiftool (command-line metadata viewer).
+
+Observation: The attacker's username was found in the Export-filename tag within the image's metadata.
+
+Answer: SakuraSnowAngelAiko
+
+Task 2: Reconnaissance
+Challenge Description: It appears the attacker made a fatal mistake in their operational security by reusing their username across other social media platforms. This should make it easier to gather additional information.
+
+Q.1. What is the full email address used by the attacker?
+
+🎯 Goal: Discover the attacker's full email address.
+
+Approach: I started by searching for the attacker's username, "SakuraSnowAngelAiko." This led me to their GitHub account and their LinkedIn profile. On GitHub, I found a repository containing a PGP public key. PGP keys are public encryption keys that can be used to sign and encrypt emails, and they often contain the associated email address. I used the gpg tool on my Linux machine to import the public key's file contents into my public key ring to retrieve the user's email.
+
+Tools/Techniques Used: Search engines, GitHub, LinkedIn, gpg (GNU Privacy Guard).
+
+Observation: The gpg tool successfully extracted the attacker's email address from the PGP public key.
+
+Answer: (The specific email address extracted from the PGP key.)
+
+Q.2. What is the attacker’s full real name?
+
+🎯 Goal: Identify the attacker's full real name.
+
+Approach: I looked at the attacker’s LinkedIn account, which I found in the previous step by searching their username.
+
+Tools/Techniques Used: LinkedIn.
+
+Observation: The LinkedIn profile clearly displayed their full name, which also matched the username's components identified earlier.
+
+Answer: Aiko Abe
+
+Task 3: Unveil
+Challenge Description: The cybercriminal is aware we are investigating. They've begun editing and deleting information on their GitHub account to throw us off. We need to retrieve the original information.
+
+Q.1. What cryptocurrency does the attacker own a cryptocurrency wallet for?
+
+🎯 Goal: Determine which cryptocurrency the attacker uses.
+
+Approach: I examined the attacker's GitHub account for repositories related to cryptocurrencies.
+
+Tools/Techniques Used: GitHub repository analysis.
+
+Observation: I found a repository specifically named "ETH", which strongly suggested the cryptocurrency.
+
+Answer: Ethereum (ETH)
+
+Q.2. What is the attacker’s cryptocurrency wallet address?
+
+🎯 Goal: Find the attacker's specific cryptocurrency wallet address.
+
+Approach: Knowing the attacker was deleting information, I checked the commit history of the "ETH" GitHub repository.
+
+Tools/Techniques Used: GitHub commit history.
+
+Observation: The commit history showed two commits on January 23, 2021. Selecting the first commit, titled "Create miningscript," revealed the attacker’s Ethereum wallet address.
+
+Answer: (The specific Ethereum wallet address found in the commit history.)
+
+Q.3. What mining pool did the attacker receive payments from on January 23, 2021 UTC?
+
+🎯 Goal: Identify the mining pool that paid the attacker on a specific date.
+
+Approach: I searched for "ethereum mining pools" and found ethermine.org. I then used this website to search for the attacker's wallet address and review its payout history.
+
+Tools/Techniques Used: Search engines, ethermine.org (blockchain explorer/mining pool).
+
+Observation: The payout history on ethermine.org showed that the attacker received payments from "ethermine" on January 23, 2021 UTC.
+
+Answer: ethermine
+
+Q.4. What other cryptocurrency did the attacker exchange with using their cryptocurrency wallet?
+
+🎯 Goal: Discover other cryptocurrencies the attacker transacted with using their wallet.
+
+Approach: I used etherscan.io, a comprehensive blockchain explorer, to analyze the transaction history of the attacker's Ethereum wallet.
+
+Tools/Techniques Used: etherscan.io (blockchain explorer).
+
+Observation: The transaction history clearly indicated exchanges with another specific cryptocurrency.
+
+Answer: Tether
+
+Task 4: Taunt
+Challenge Description: The cybercriminal is aware of our investigation and brazenly taunted the OSINT Dojo on Twitter. Their Twitter account uses a different username, which might provide clues about their next destination. We were given a screenshot of the message.
+
+Q.1. What is the attacker’s current Twitter handle?
+
+🎯 Goal: Identify the attacker's current Twitter handle.
+
+Approach: I looked at the provided screenshot of the Twitter message, which showed the attacker's old Twitter handle "@AikoAbe3". I then performed a search on Twitter for this old handle.
+
+Tools/Techniques Used: Twitter search.
+
+Observation: Searching for the old handle revealed their current Twitter handle, "@SakuraLoverAiko". I confirmed this by matching the profile picture from the challenge image.
+
+Answer: @SakuraLoverAiko
+
+Q.2. What is the URL for the location where the attacker saved their WiFi SSIDs and passwords?
+
+🎯 Goal: Find the dark web URL where the attacker stored sensitive WiFi information.
+
+Approach: I reviewed the tweet history of the attacker’s current Twitter account and found a post mentioning saving WiFi SSIDs and passwords on the dark web. The challenge hints provided an image of this dark web site.
+
+Tools/Techniques Used: Twitter analysis, challenge hint image.
+
+Observation: The hint image displayed the full URL for the dark web site, although the MD5 hash was partially obscured. By appending the visible MD5 hash from the website to the URL, I constructed the complete address.
+
+Answer: http://deepv2w7p33xa4pwxzwi2ps4j62gfxpyp44ezjbmpttxz3owlsp4ljid.onion/show.php?md5=b2b37b3c106eb3f86e2340a3050968e2
+
+Q.3. What is the BSSID for the attacker’s Home WiFi?
+
+🎯 Goal: Identify the BSSID (Basic Service Set Identifier) of the attacker's home WiFi.
+
+Approach: From the dark web site URL (or the hint image), I identified the SSID (Service Set Identifier) of the attacker’s Home WiFi as "DK1F-G". I then used Wigle.net, a database of wireless networks, to perform an advanced search.
+
+Tools/Techniques Used: Wigle.net (wireless network database).
+
+Observation: Performing an advanced search on Wigle.net for the SSID "DK1F-G" successfully retrieved the corresponding BSSID.
+
+Answer: (The specific BSSID found on Wigle.net.)
+
+Task 5: Homebound
+Challenge Description: The cybercriminal is heading home, leaving a trail of photos on Twitter. By following these breadcrumbs, we can track their movements back to their final destination and identify the relevant law enforcement organization.
+
+Q.1. What airport is closest to the location the attacker shared a photo from prior to getting on their flight?
+
+🎯 Goal: Identify the airport closest to the attacker's pre-flight photo location.
+
+Approach: I reviewed the attacker’s Twitter history and found a picture posted before their flight, showing cherry blossom trees and a large white obelisk in the distance. I recognized the obelisk as the Washington Monument.
+
+Tools/Techniques Used: Twitter analysis, landmark identification, geographical knowledge.
+
+Observation: The Washington Monument is a clear indicator of Washington D.C. The closest major airport to this landmark is Ronald Reagan Washington National Airport.
+
+Answer: Ronald Reagan Washington National Airport (DCA)
+
+Q.2. What airport did the attacker have their last layover in?
+
+🎯 Goal: Determine the airport where the attacker had their final layover.
+
+Approach: The next tweet from the attacker showed the name of a first-class lounge they visited for their final layover.
+
+Tools/Techniques Used: Twitter analysis, search engines.
+
+Observation: The lounge belonged to Japan Airlines (JAL), and a quick Google search for "Sakura lounge" revealed that it is located in Tokyo International Airport, Haneda (HND).
+
+Answer: Tokyo International Airport, Haneda (HND)
+
+Q.3. What lake can be seen in the map shared by the attacker as they were on their final flight home?
+
+🎯 Goal: Identify a specific lake from a satellite image shared by the attacker.
+
+Approach: The attacker tweeted a satellite image of their home country, including a lake. Knowing they were last in Tokyo, Japan, I used Google Maps for Japan to search for similar landmarks. I focused on matching an 'S'-shaped island or similar landmass on the left side of the image.
+
+Tools/Techniques Used: Twitter analysis, Google Maps (satellite view).
+
+Observation: After matching the unique island shape, I located an oval, dark blue patch on the right side of the map, which was the lake. Zooming in on Google Maps allowed me to identify its name.
+
+Answer: (The specific name of the lake identified on Google Maps.)
+
+Q.4. What city does the attacker likely consider “home”?
+
+🎯 Goal: Determine the attacker's likely home city.
+
+Approach: Using all the information collected (Japanese nationality, likely northern Japan location from previous steps), I revisited the list of WiFi SSIDs found earlier.
+
+Tools/Techniques Used: Synthesis of previous OSINT findings, SSID list analysis.
+
+Observation: The SSID list included "HIROSAKI_Free_Wi-Fi". A quick check confirmed that Hirosaki is a city in northern Japan, aligning with other clues.
+
+Answer: Hirosaki
