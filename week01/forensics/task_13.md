@@ -1,6 +1,6 @@
 CSOC InfoSec Forensics - Week 1, Day 7, Task 13: Proxy Log Analysis
 Building Linux Command-Line Skills for Log Analysis
-This repository contains the walkthrough and solutions for Task 13, Day 7 of the CSOC InfoSec Forensics program, focusing on developing essential Linux command-line skills for log analysis. The task involves manipulating and extracting relevant information from proxy logs using fundamental Linux commands such as cut, grep, sort, and uniq.
+This writeup contains the walkthrough and solutions for Task 13, Day 7 of the CSOC InfoSec Forensics program, focusing on developing essential Linux command-line skills for log analysis. The task involves manipulating and extracting relevant information from proxy logs using fundamental Linux commands such as cut, grep, sort, and uniq.
 
 Objectives:
 Understand the structure of proxy log entries.
@@ -147,5 +147,3 @@ cut -d '=' -f2: Further extracts the part of the field after the first equals si
 base64 -d: Decodes the extracted string from Base64 encoding.
 
 Answer: THM{a_gift_for_you_awesome_analyst!}
-
-This walkthrough demonstrates practical applications of b
