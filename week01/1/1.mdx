@@ -1,12 +1,8 @@
 # 🛡️ PicoCTF - Information Challenge: Uncovering Hidden Secrets
 
-This writeup details the solution for the PicoCTF challenge "Information," which highlights the various ways data can be concealed within seemingly innocuous files. This challenge specifically focuses on analyzing image metadata to extract hidden information.
-
 ## Challenge Overview:
 
 The "Information" challenge presents us with a single file: `cat.jpg`. The core task is to examine this file thoroughly to uncover a hidden flag. This forces us to think beyond simple file inspection and delve into deeper analysis techniques.
-
-## WALKTHROUGH
 
 Here's a step-by-step guide to solving the "Information" challenge.
 
@@ -70,8 +66,7 @@ Here's a step-by-step guide to solving the "Information" challenge.
   * **Result:**
     Executing this command reveals the hidden flag.
 
-* **Answer (The Flag):** `picoCTF{the_m3tYWRhdGFfMXNfbW9kaWZpZWR9}`
+* **Answer (The Flag):** ` echo cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9 | base64 -d
+picoCTF{the_m3tadata_1s_modified}`
 
 ---
-
-This challenge serves as an excellent introduction to the concept of steganography and the importance of examining all aspects of a file, including its metadata, during a forensic analysis or CTF challenge.
